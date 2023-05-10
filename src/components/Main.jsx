@@ -15,7 +15,7 @@ function Main({ onEditAvatar, onCardClick, onEditProfile, onAddPlace }) {
                 setCards(card);
                 setUserName(user.name);
                 setUserAvatar(user.avatar);
-                setUserDescription(user.description);
+                setUserDescription(user.about);
             })
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
