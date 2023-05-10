@@ -48,7 +48,7 @@ function App() {
         />
         <Footer />
 
-        <PopupWithForm title={'Новое место'} isOpen={isAddPlacePopupOpen} name="card-add" onClose={closeAllPopups}>
+        <PopupWithForm title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
           <div className="popup__section">
             <input type="text" placeholder="Название" name="name" minLength="2" maxLength="30" className="popup__input popup__input_type_name" required />
             <span className="popup__error"></span>
@@ -59,14 +59,14 @@ function App() {
           </div>
         </PopupWithForm>
 
-        <PopupWithForm title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} name="avatar" onClose={closeAllPopups}>
+        <PopupWithForm title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
           <div className="popup__section">
             <input type="url" placeholder="Ссылка на картинку" name="avatarInput" className="popup__input popup__input_type_url" required />
             <span className="popup__error"></span>
           </div>
         </PopupWithForm>
 
-        <PopupWithForm title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} name="info" onClose={closeAllPopups}>
+        <PopupWithForm title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <div className="popup__section">
             <input type="text" placeholder="Имя" name="name" minLength="2" maxLength="40" className="popup__input popup__input_type_name" required />
             <span className="popup__error"></span>
