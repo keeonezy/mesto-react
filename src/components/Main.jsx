@@ -1,14 +1,31 @@
 import React from "react";
 import Avatar from "../images/Avatar.jpg"
+import { api } from "../utils/Api";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
+
+    const [userName, setUserName] = React.useState('');
+    const [userDescription, setUserDescription] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
+
+    React.useEffect(() => {
+        Promise.all([api.getUserInfo()])
+            .then(([user]) => {
+                setUserName(user.name);
+                setUserAvatar(user.avatar);
+                setUserDescription(user.description);
+            })
+            .catch((err) => {
+                console.log(`Ошибка: ${err}`);
+            })
+    }, []);
 
     return (
         <main className="main">
 
             <section className="profile">
                 <div className="profile__avatar-container">
-                    <img src={Avatar} alt="Фотография пользователя" className="profile__avatar" />
+                    <img src={userAvatar} alt="Фотография пользователя" className="profile__avatar" />
                     <button className="profile__button-change" onClick={onEditAvatar}></button>
                 </div>
                 <div className="profile__info">
