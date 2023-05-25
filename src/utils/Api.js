@@ -33,13 +33,13 @@ class Api {
     }
 
     // Редактирование профиля имя и обо мне
-    editUserInfo({ name, about }) {
+    editUserInfo(data) {
         return this._request(`${this._baseUrl}/users/me`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                about: about
+                name: data.name,
+                about: data.post
             })
         })
     }

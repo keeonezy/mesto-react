@@ -5,7 +5,8 @@ import { Main } from "./Main";
 import { ImagePopup } from "./ImagePopup";
 import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { api } from '../utils/Api';
+import { api } from "../utils/Api";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -54,8 +55,7 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     if (!isLiked) {
-      api
-        .setlike(card._id)
+      api.setlike(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
@@ -64,8 +64,7 @@ function App() {
         });
     }
     else {
-      api
-        .deleteLike(card._id)
+      api.deleteLike(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
@@ -76,8 +75,7 @@ function App() {
   }
 
   function handleDeleteCard(card) {
-    api
-      .deleteCard(card._id)
+    api.deleteCard(card._id)
       .then(() => {
         setCards((cards) => cards.filter((item) => item._id !== card._id));
       })
@@ -86,6 +84,23 @@ function App() {
         console.log(`в App Ошибка: ${err}`);
       });
   }
+
+  function handleUpdateUser(data) {
+    api.editUserInfo(data)
+      .then((user) => {
+        setCurrentUser(user);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  <PopupWithForm title={'Вы уверены?'}
+    isOpen={isEditDeletePopupOpen}
+    onClose={closeAllPopups}
+    textButton="Да">
+  </PopupWithForm>
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -102,6 +117,8 @@ function App() {
             onCardClick={handleCardClick}
           />
           <Footer />
+
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
