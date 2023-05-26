@@ -7,6 +7,7 @@ import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from "../utils/Api";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -96,6 +97,17 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(data) {
+    api.editUserAvatar(data)
+      .then((user) => {
+        setCurrentUser(user);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
   <PopupWithForm title={'Вы уверены?'}
     isOpen={isEditDeletePopupOpen}
     onClose={closeAllPopups}
@@ -118,6 +130,7 @@ function App() {
           />
           <Footer />
 
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />

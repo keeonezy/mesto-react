@@ -45,12 +45,12 @@ class Api {
     }
 
     // Редактируем аватар пользователя
-    editUserAvatar({ avatarInput }) {
+    editUserAvatar(data) {
         return this._request(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                avatar: avatarInput
+                avatar: data.avatar
             })
         })
     }
