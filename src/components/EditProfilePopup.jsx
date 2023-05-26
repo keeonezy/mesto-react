@@ -29,7 +29,7 @@ function EditProfilePopup(props) {
     }, [currentUser, props.isOpen]);
 
     return (
-        <PopupWithForm title={'Редактировать профиль'} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} name="info">
+        <PopupWithForm title={"Редактировать профиль"} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} name="info">
             <div className="popup__section">
                 <input type="text" placeholder="Имя" name="name" minLength="2" maxLength="40" className="popup__input popup__input_type_name" onChange={handleChangeName} value={name || ""} required />
                 <span className="popup__error"></span>

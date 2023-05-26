@@ -4,10 +4,11 @@ import { Footer } from "./Footer";
 import { Main } from "./Main";
 import { ImagePopup } from "./ImagePopup";
 import { PopupWithForm } from "./PopupWithForm";
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/Api";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -108,7 +109,18 @@ function App() {
       });
   }
 
-  <PopupWithForm title={'Вы уверены?'}
+  function handleAddPlaceSubmit(data) {
+    api.addNewCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  <PopupWithForm title={"Вы уверены?"}
     isOpen={isEditDeletePopupOpen}
     onClose={closeAllPopups}
     textButton="Да">
@@ -132,6 +144,7 @@ function App() {
 
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 

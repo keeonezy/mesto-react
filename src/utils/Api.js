@@ -56,13 +56,13 @@ class Api {
     }
 
     // Добавляем новую карточку
-    addNewCard({ name, link }) {
+    addNewCard(data) {
         return this._request(`${this._baseUrl}/cards`, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                link: link
+                name: data.name,
+                link: data.link
             })
         })
     }
