@@ -2,12 +2,12 @@ import React from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Main } from "./Main";
-import { ImagePopup } from "./ImagePopup";
-import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/Api";
-import EditProfilePopup from "./EditProfilePopup";
+import { ImagePopup } from "./ImagePopup";
+import { PopupWithForm } from "./PopupWithForm";
 import EditAvatarPopup from "./EditAvatarPopup";
+import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
     if (!isLiked) {
       api.setlike(card._id)
         .then((newCard) => {
-          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+          setCards((state) => state.map((item) => item._id === card._id ? newCard : item));
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
@@ -68,7 +68,7 @@ function App() {
     else {
       api.deleteLike(card._id)
         .then((newCard) => {
-          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+          setCards((state) => state.map((item) => item._id === card._id ? newCard : item));
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
@@ -87,7 +87,7 @@ function App() {
       });
   }
 
-  function handleUpdateUser(data) {
+  function handleUpdateProfile(data) {
     api.editUserInfo(data)
       .then((user) => {
         setCurrentUser(user);
@@ -109,7 +109,7 @@ function App() {
       });
   }
 
-  function handleAddPlaceSubmit(data) {
+  function handleAddCard(data) {
     api.addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -143,8 +143,8 @@ function App() {
           <Footer />
 
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateProfile} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddCard} />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
