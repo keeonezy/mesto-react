@@ -8,3 +8,7 @@
 **Технологии используемые**
 
 * HTML, CSS, BEM, GIT, JavaScript(ООП, ES6 Modules), Webpack, React
+
+**Gh pages**
+
+https://keeonezy.github.io/mesto-react/index.html
